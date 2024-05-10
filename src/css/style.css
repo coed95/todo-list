@@ -1,0 +1,72 @@
+:root {
+    --primary-dark: #1c1917;
+    --primary-light: #e2e8f0;
+    --secondary-dark: #1f2937;
+    --secondary-light: #d1d5db;
+    --button-active: #bbbccc;
+}
+  
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+}
+
+button {
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    width: 100%;
+}
+
+button img {
+    margin-right: 8px;
+}
+
+input {
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+button, input {
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+}
+
+
+@media (max-width: 650px) {
+    .button-open-nav {
+        display: block;
+    }
+  
+    .main {
+        flex-direction: column;
+    }
+  
+    .nav {
+        display: none;
+        width: 100%;
+    }
+  
+    .project-preview {
+        width: 100%;
+    }
+  
+    .right-task-panel {
+        justify-content: flex-end;
+        max-width: 33%;
+    }
+}

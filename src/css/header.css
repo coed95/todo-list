@@ -1,0 +1,14 @@
+.header {
+    align-items: center;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    display: flex;
+    justify-content: space-between;
+    padding: 24px;
+}
+
+.title {
+    font-family: "Open Sans", sans-serif;
+    font-size: 40px;
+    padding: 12px;
+}
