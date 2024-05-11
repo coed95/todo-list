@@ -51,9 +51,16 @@ export const DOMHandler = {
         projects.classList.add("projects-list");
         projects.setAttribute("id", "projects-list");
 
-        /* code to handle projects here */
-
         const buttonAddProject = this.createButton("+ Add Project");
+        buttonAddProject.classList.add("button");
+        buttonAddProject.setAttribute("id", "button-add-project");
+
+        buttonAddProject.addEventListener("click", () => {
+            // code that adds projects above
+        });
+
+        // code to handle projects here
+
         projects.appendChild(buttonAddProject);
 
         nav.appendChild(taskTitle);
