@@ -30,6 +30,8 @@ export const DOMHandler = {
         const buttonToday = this.createButton("Today", Today);
         const buttonWeek = this.createButton("Week", Week);
 
+        buttonHome.classList.add("active");
+
         buttonHome.addEventListener("click", () => {
             handleButtonClick(buttonHome);
         });
