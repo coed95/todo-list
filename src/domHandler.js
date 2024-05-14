@@ -26,9 +26,9 @@ export const DOMHandler = {
         const taskTitle = document.createElement("h1");
         taskTitle.textContent = "Tasks";
 
-        const buttonHome = this.createButton("Home", Home);
-        const buttonToday = this.createButton("Today", Today);
-        const buttonWeek = this.createButton("Week", Week);
+        const buttonHome = this.createNavButton("Home", Home);
+        const buttonToday = this.createNavButton("Today", Today);
+        const buttonWeek = this.createNavButton("Week", Week);
 
         buttonHome.classList.add("active");
 
@@ -53,8 +53,8 @@ export const DOMHandler = {
 
         const projectModal = this.createModal("project-modal");
 
-        const buttonAddProject = this.createButton("+ Add Project");
-        buttonAddProject.classList.add("button");
+        const buttonAddProject = this.createNavButton("+ Add Project");
+        buttonAddProject.classList.add("button-nav");
         buttonAddProject.setAttribute("id", "button-add-project");
 
         const cancelButton = projectModal.querySelector("#cancel-button");
@@ -93,9 +93,9 @@ export const DOMHandler = {
         return main;
     },
 
-    createButton: function(buttonName, buttonImg = '') {
+    createNavButton: function(buttonName, buttonImg = '') {
         const button = document.createElement("button");
-        button.classList.add("button");
+        button.classList.add("button-nav");
 
         const name = document.createTextNode(buttonName);
 
