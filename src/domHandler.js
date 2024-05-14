@@ -156,30 +156,16 @@ export const DOMHandler = {
                 break;
         }
 
-        // this.centerModal(modal);
-        modal.style.display = "none";
+        modal.style.visibility = "hidden";
 
         return modal;
     },
 
     showModal: function(modal) {
-        modal.style.display = "block";
+        modal.style.visibility = "visible";
     },
 
     hideModal: function(modal) {
-        modal.style.display = "none";
-    },
-
-    centerModal: function(modal) {
-        const windowHeight = window.innerHeight;
-        const windowWidth = window.innerWidth;
-        const modalHeight = modal.offsetHeight;
-        const modalWidth = modal.offsetWidth;
-    
-        const top = (windowHeight - modalHeight) / 2;
-        const left = (windowWidth - modalWidth) / 2;
-    
-        modal.style.top = top + "px";
-        modal.style.left = left + "px";
+        modal.style.visibility = "hidden";
     },
 };
