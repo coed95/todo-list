@@ -28,7 +28,6 @@
 .nav .button-nav.active,
 .nav .button-nav:hover {
     background-color: var(--button-active);
-
 }
 
 .nav .img {
@@ -51,19 +50,48 @@
     width: auto;
 }
 
-.modal-content {
+.project-modal-content {
+    align-items: center;
     background-color: white;
     border-radius: 5px;
-    padding: 48px;
-    height: 100%;
-    width: 50%;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 75%;
+    width: 25%;
     margin: auto;
     max-width: 600px;
     max-height: 400px;
     overflow: auto;
 }
 
+.modal-title {
+    background-color: var(--modal-title-color);
+    display: flex;
+    justify-content: space-between;
+    height: 15%;
+    padding: 12px;
+    width: 100%;
+}
+
+.modal-title .close-modal {
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.1s ease;
+}
+
+.modal-title .close-modal:hover {
+    background-color: var(--button-active);
+}
+
 .modal-buttons {
     display: flex;
     justify-content: center;
+    gap: 24px;
+}
+
+.modal-buttons #add-button,
+.modal-buttons #cancel-button {
+    width: 50%;
 }
