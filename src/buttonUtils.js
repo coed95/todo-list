@@ -2,11 +2,11 @@ export function handleButtonClick(button) {
     if (button.classList.contains("active")) {
         return;
     }
-    setActiveButton(button);
+    setActiveNavButton(button);
 }
 
-export function setActiveButton(button) {
-    const buttons = document.querySelectorAll(".button");
+export function setActiveNavButton(button) {
+    const buttons = document.querySelectorAll(".button-nav");
 
     buttons.forEach((button) => {
         if (button !== this) {
