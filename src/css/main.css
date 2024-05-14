@@ -15,18 +15,18 @@
     padding: 10px;
 }
 
-.nav .button {
+.nav .button-nav {
     background-color: var(--secondary-light);
     text-align: left;
     transition: background-color 0.2s ease;
 }
 
-.nav .button.active {
+.nav .button-nav.active {
     font-weight: bold;
 }
 
-.nav .button.active,
-.nav .button:hover {
+.nav .button-nav.active,
+.nav .button-nav:hover {
     background-color: var(--button-active);
 
 }
