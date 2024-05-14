@@ -58,12 +58,17 @@ export const DOMHandler = {
         buttonAddProject.setAttribute("id", "button-add-project");
 
         const cancelButton = projectModal.querySelector("#cancel-button");
+        const closeModalButton = projectModal.querySelector("#close-modal");
 
         buttonAddProject.addEventListener("click", () => {
             this.showModal(projectModal);
         });
 
         cancelButton.addEventListener("click", () => {
+            this.hideModal(projectModal);
+        });
+
+        closeModalButton.addEventListener("click", () => {
             this.hideModal(projectModal);
         });
 
@@ -119,8 +124,12 @@ export const DOMHandler = {
         switch (modalName) {
             case "project-modal":
                 modal.innerHTML = `
-                    <div class="modal-content">
-                        <input type="text" placeholder="Title...">
+                    <div class="project-modal-content">
+                        <div class="modal-title">
+                            <h2>Add Project</h2>
+                            <span class="close-modal" id="close-modal">&times;</span>
+                        </div>
+                        <input class="project-name" type="text" placeholder="Title...">
                         <div class="modal-buttons">
                             <button id="add-button">Add</button>
                             <button id="cancel-button">Cancel</button>
@@ -131,7 +140,7 @@ export const DOMHandler = {
 
             case "task-modal":
                 modal.innerHTML = `
-                    <div class="modal-content">
+                    <div class="task-modal-content">
                         <input type="text" placeholder="Title...">
                         <input type="text" placeholder="Description...">
                         <div class="due-date">
