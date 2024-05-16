@@ -65,10 +65,12 @@ export const DOMHandler = {
         });
 
         cancelButton.addEventListener("click", () => {
+            this.resetModal(projectModal);
             this.hideModal(projectModal);
         });
 
         closeModalButton.addEventListener("click", () => {
+            this.resetModal(projectModal);
             this.hideModal(projectModal);
         });
 
@@ -120,13 +122,14 @@ export const DOMHandler = {
     createModal: function(modalName) {
         const modal = document.createElement("div");
         modal.classList.add(modalName);
+        modal.setAttribute("id", modalName);
 
         switch (modalName) {
             case "project-modal":
                 modal.innerHTML = `
                     <div class="project-modal-content">
                         <div class="modal-title">
-                            <h2>Add Project</h2>
+                            <h2>Add a new project</h2>
                             <span class="close-modal" id="close-modal">&times;</span>
                         </div>
                         <input class="project-name" type="text" placeholder="Title...">
@@ -163,6 +166,10 @@ export const DOMHandler = {
                     </div>
                 `;
                 break;
+
+                default:
+                    console.log("Error: unknown modal type");
+                    break;
         }
 
         modal.style.visibility = "hidden";
@@ -177,4 +184,22 @@ export const DOMHandler = {
     hideModal: function(modal) {
         modal.style.visibility = "hidden";
     },
+
+    resetModal: function(modal) {
+        switch (modal.id) {
+            case "project-modal":
+                modal.querySelector(".project-name").value = '';
+                break;
+
+            case "task-modal":
+                modal.querySelectorAll('input[type="text"]').forEach(input => input.value = '');
+                modal.querySelector(".new-date").value = '';
+                modal.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+                break;
+
+            default:
+                console.log("Error: unknown modal type");
+                break;
+        }
+    }
 };
