@@ -30,6 +30,10 @@ export const DOMHandler = {
         const buttonToday = this.createNavButton("Today", Today);
         const buttonWeek = this.createNavButton("Week", Week);
 
+        buttonHome.setAttribute("id", "button-home");
+        buttonToday.setAttribute("id", "button-today");
+        buttonWeek.setAttribute("id", "button-week");
+
         buttonHome.classList.add("active");
 
         buttonHome.addEventListener("click", () => {
@@ -95,7 +99,50 @@ export const DOMHandler = {
         main.classList.add("main");
 
         const nav = this.createNav();
+
+        const content = document.createElement("div");
+        content.classList.add("content");
+
+        const contentTitle = document.createElement("h2");
+        contentTitle.classList.add("content-title");
+
+        contentTitle.textContent = "Home";
+
+        const taskList = document.createElement("div");
+        taskList.classList.add("task-list");
+
+        const buttonAddTask = document.createElement("button");
+        buttonAddTask.classList.add("button-add-task");
+        buttonAddTask.setAttribute("id", "button-add-task");
+
+        buttonAddTask.textContent = "+ Add Task";
+
+        const buttonHome = nav.querySelector("#button-home");
+        const buttonToday = nav.querySelector("#button-today");
+        const buttonWeek = nav.querySelector("#button-week");
+
+        buttonHome.addEventListener("click", () => {
+            this.loadContent("home");
+        });
+
+        buttonToday.addEventListener("click", () => {
+            this.loadContent("today");
+        });
+
+        buttonWeek.addEventListener("click", () => {
+            this.loadContent("week");
+        });
+
+        buttonAddTask.addEventListener("click", () => {
+            alert("nigger");
+        });
+
+        content.appendChild(contentTitle);
+        content.appendChild(taskList);
+        content.appendChild(buttonAddTask);
+
         main.appendChild(nav);
+        main.appendChild(content);
 
         return main;
     },
@@ -175,6 +222,33 @@ export const DOMHandler = {
         modal.style.visibility = "hidden";
 
         return modal;
+    },
+
+    loadContent: function(page) {
+        const content = document.querySelector(".content");
+        const contentTitle = document.querySelector(".content-title");
+        const taskList = document.querySelector(".task-list");
+
+        switch (page) {
+            case "home":
+                contentTitle.textContent = "Home";
+                // load all tasks
+                break;
+            
+            case "today":
+                contentTitle.textContent = "Today";
+                // load daily tasks
+                break;
+
+            case "week":
+                contentTitle.textContent = "Week";
+                // load weekly tasks
+                break;
+
+            default:
+                console.log("Error: unknown page name");
+                break;
+        }
     },
 
     showModal: function(modal) {
