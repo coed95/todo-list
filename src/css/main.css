@@ -71,6 +71,7 @@
     display: flex;
     justify-content: space-between;
     height: 15%;
+    margin-bottom: 12px;
     padding: 12px;
     width: 100%;
 }
@@ -93,5 +94,31 @@
 
 .modal-buttons #add-button,
 .modal-buttons #cancel-button {
-    width: 50%;
+    display: inline-block;
+    font-weight: bold;
+    padding: 12x;
+}
+
+.modal-buttons #add-button {
+    background-color: #86efac;
+    border: 1px solid #4ade80;
+}
+
+.modal-buttons #cancel-button {
+    background-color: #fca5a5;
+    border: 1px solid #ef4444;
+}
+
+.modal-buttons #add-button:hover {
+    background-color: #4ade80;
+}
+
+.modal-buttons #cancel-button:hover {
+    background-color: #f87171;
+}
+
+.project-name {
+    border: 1px solid #aaa;
+    margin-bottom: 24px;
+    width: 90%;
 }
