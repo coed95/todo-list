@@ -132,7 +132,7 @@ export const DOMHandler = {
                             <h2>Add a new project</h2>
                             <span class="close-modal" id="close-modal">&times;</span>
                         </div>
-                        <input class="project-name" type="text" placeholder="Title...">
+                        <input class="project-name" id="project-name" type="text" placeholder="Title...">
                         <div class="modal-buttons">
                             <button id="add-button">Add</button>
                             <button id="cancel-button">Cancel</button>
