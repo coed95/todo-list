@@ -16,7 +16,8 @@
     width: auto;
 }
 
-.project-modal-content {
+.project-modal-content,
+.task-modal-content {
     align-items: center;
     background-color: white;
     border-radius: 5px;
