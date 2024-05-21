@@ -170,13 +170,13 @@ export const DOMHandler = {
                         </div>
                         <input class="project-name" id="project-name" type="text" placeholder="Title...">
                         <div class="modal-buttons">
-                            <button id="add-button">Add</button>
-                            <button id="cancel-button">Cancel</button>
+                            <button id="add-button-project">Add</button>
+                            <button id="cancel-button-project">Cancel</button>
                         </div>
                     </div>
                 `;
 
-                const cancelButton = modal.querySelector("#cancel-button");
+                const cancelButton = modal.querySelector("#cancel-button-project");
                 const closeModalButton = modal.querySelector("#close-modal");
 
                 cancelButton.addEventListener("click", () => {
@@ -210,8 +210,8 @@ export const DOMHandler = {
                             <label for="high-priority">High</label>
                         </div>
                         <div class="modal-buttons">
-                            <button id="add-button">Add</button>
-                            <button id="cancel-button">Cancel</button>
+                            <button id="add-button-task">Add</button>
+                            <button id="cancel-button-task">Cancel</button>
                         </div>
                     </div>
                 `;

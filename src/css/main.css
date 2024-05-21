@@ -60,28 +60,34 @@
     gap: 24px;
 }
 
-.modal-buttons #add-button,
-.modal-buttons #cancel-button {
+.modal-buttons #add-button-project,
+.modal-buttons #add-button-task,
+.modal-buttons #cancel-button-project,
+.modal-buttons #cancel-button-task {
     display: inline-block;
     font-weight: bold;
     padding: 12x;
 }
 
-.modal-buttons #add-button {
+.modal-buttons #add-button-project,
+.modal-buttons #add-button-task {
     background-color: #86efac;
     border: 1px solid #4ade80;
 }
 
-.modal-buttons #cancel-button {
+.modal-buttons #cancel-button-project,
+.modal-buttons #cancel-button-task {
     background-color: #fca5a5;
     border: 1px solid #ef4444;
 }
 
-.modal-buttons #add-button:hover {
+.modal-buttons #add-button-project:hover,
+.modal-buttons #add-button-task:hover {
     background-color: #4ade80;
 }
 
-.modal-buttons #cancel-button:hover {
+.modal-buttons #cancel-button-project:hover,
+.modal-buttons #cancel-button-task:hover {
     background-color: #f87171;
 }
 
