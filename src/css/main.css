@@ -44,13 +44,15 @@
     width: 100%;
 }
 
-.modal-title .close-modal {
+.modal-title .close-modal-project,
+.modal-title .close-modal-task {
     cursor: pointer;
     font-size: 24px;
     transition: background-color 0.1s ease;
 }
 
-.modal-title .close-modal:hover {
+.modal-title .close-modal-project:hover,
+.modal-title .close-modal-task:hover {
     background-color: var(--button-active);
 }
 

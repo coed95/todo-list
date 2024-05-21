@@ -65,6 +65,19 @@ export const DOMHandler = {
             this.showModal(projectModal);
         });
 
+        const cancelButtonProject = projectModal.querySelector("#cancel-button-project");
+        const closeButtonProject = projectModal.querySelector("#close-modal-project");
+
+        cancelButtonProject.addEventListener("click", () => {
+            this.resetModal(projectModal);
+            this.hideModal(projectModal);
+        });
+
+        closeButtonProject.addEventListener("click", () => {
+            this.resetModal(projectModal);
+            this.hideModal(projectModal);
+        });
+
         // code to handle projects here
 
         projects.appendChild(buttonAddProject);
@@ -109,6 +122,20 @@ export const DOMHandler = {
         buttonAddTask.addEventListener("click", () => {
             this.showModal(taskModal);
         });
+
+        /*
+        const cancelButtonTask = taskModal.querySelector("#cancel-button-task");
+        const closeButtonTask = taskModal.querySelector("#close-modal-task");
+
+        cancelButtonTask.addEventListener("click", () => {
+            this.resetModal(taskModal);
+            this.hideModal(taskModal);
+        });
+
+        closeButtonTask.addEventListener("click", () => {
+            this.resetModal(taskModal);
+            this.hideModal(taskModal);
+        }); */
 
         const buttonHome = nav.querySelector("#button-home");
         const buttonToday = nav.querySelector("#button-today");
@@ -167,7 +194,7 @@ export const DOMHandler = {
                     <div class="project-modal-content">
                         <div class="modal-title">
                             <h2>Add a new project</h2>
-                            <span class="close-modal" id="close-modal">&times;</span>
+                            <span class="close-modal-project" id="close-modal-project">&times;</span>
                         </div>
                         <input class="project-name" id="project-name" type="text" placeholder="Title...">
                         <div class="modal-buttons">
@@ -176,20 +203,6 @@ export const DOMHandler = {
                         </div>
                     </div>
                 `;
-
-                const cancelButton = modal.querySelector("#cancel-button-project");
-                const closeModalButton = modal.querySelector("#close-modal");
-
-                cancelButton.addEventListener("click", () => {
-                    this.resetModal(modal);
-                    this.hideModal(modal);
-                });
-        
-                closeModalButton.addEventListener("click", () => {
-                    this.resetModal(modal);
-                    this.hideModal(modal);
-                });
-
                 break;
 
             case "task-modal":
