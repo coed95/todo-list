@@ -99,6 +99,7 @@ export const DOMHandler = {
         tasks.classList.add("task-list");
 
         const taskModal = this.createModal("task-modal");
+        document.body.appendChild(taskModal);
 
         const buttonAddTask = document.createElement("button");
         buttonAddTask.textContent = "+ Add Task";
