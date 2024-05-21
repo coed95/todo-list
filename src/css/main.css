@@ -47,20 +47,19 @@
     justify-content: space-between;
     height: 15%;
     margin-bottom: 12px;
+    max-height: 50px;
     overflow: hidden;
     padding: 8px;
     width: 100%;
 }
 
-.modal-title .close-modal-project,
-.modal-title .close-modal-task {
+.modal-title .close-modal {
     cursor: pointer;
     font-size: 20px;
     transition: background-color 0.1s ease;
 }
 
-.modal-title .close-modal-project:hover,
-.modal-title .close-modal-task:hover {
+.modal-title .close-modal:hover {
     background-color: var(--button-active);
 }
 
@@ -70,34 +69,28 @@
     gap: 24px;
 }
 
-.modal-buttons #add-button-project,
-.modal-buttons #add-button-task,
-.modal-buttons #cancel-button-project,
-.modal-buttons #cancel-button-task {
+.modal-buttons .add-button,
+.modal-buttons .cancel-button {
     display: inline-block;
     font-weight: bold;
     padding: 12x;
 }
 
-.modal-buttons #add-button-project,
-.modal-buttons #add-button-task {
+.modal-buttons .add-button {
     background-color: #86efac;
     border: 1px solid #4ade80;
 }
 
-.modal-buttons #cancel-button-project,
-.modal-buttons #cancel-button-task {
+.modal-buttons .cancel-button {
     background-color: #fca5a5;
     border: 1px solid #ef4444;
 }
 
-.modal-buttons #add-button-project:hover,
-.modal-buttons #add-button-task:hover {
+.modal-buttons .add-button:hover {
     background-color: #4ade80;
 }
 
-.modal-buttons #cancel-button-project:hover,
-.modal-buttons #cancel-button-task:hover {
+.modal-buttons .cancel-button:hover {
     background-color: #f87171;
 }
 

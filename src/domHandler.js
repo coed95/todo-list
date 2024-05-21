@@ -123,7 +123,6 @@ export const DOMHandler = {
             this.showModal(taskModal);
         });
 
-        /*
         const cancelButtonTask = taskModal.querySelector("#cancel-button-task");
         const closeButtonTask = taskModal.querySelector("#close-modal-task");
 
@@ -132,6 +131,7 @@ export const DOMHandler = {
             this.hideModal(taskModal);
         });
 
+        /*
         closeButtonTask.addEventListener("click", () => {
             this.resetModal(taskModal);
             this.hideModal(taskModal);
@@ -194,12 +194,12 @@ export const DOMHandler = {
                     <div class="project-modal-content">
                         <div class="modal-title">
                             <h2>Add a new project</h2>
-                            <span class="close-modal-project" id="close-modal-project">&times;</span>
+                            <span class="close-modal" id="close-modal-project">&times;</span>
                         </div>
                         <input class="project-name" id="project-name" type="text" placeholder="Title...">
                         <div class="modal-buttons">
-                            <button id="add-button-project">Add</button>
-                            <button id="cancel-button-project">Cancel</button>
+                            <button class="add-button" id="add-button-project">Add</button>
+                            <button class="cancel-button" id="cancel-button-project">Cancel</button>
                         </div>
                     </div>
                 `;
@@ -208,6 +208,10 @@ export const DOMHandler = {
             case "task-modal":
                 modal.innerHTML = `
                     <div class="task-modal-content">
+                        <div class="modal-title">
+                            <h2>Add a new task</h2>
+                            <span class="close-modal" id="close-modal-task">&times;</span>
+                        </div>
                         <input type="text" placeholder="Title...">
                         <input type="text" placeholder="Description...">
                         <div class="due-date">
@@ -224,8 +228,8 @@ export const DOMHandler = {
                             <label for="high-priority">High</label>
                         </div>
                         <div class="modal-buttons">
-                            <button id="add-button-task">Add</button>
-                            <button id="cancel-button-task">Cancel</button>
+                            <button class="add-button" id="add-button-task">Add</button>
+                            <button class="cancel-button" id="cancel-button-task">Cancel</button>
                         </div>
                     </div>
                 `;
