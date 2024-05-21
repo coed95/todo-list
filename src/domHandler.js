@@ -61,21 +61,8 @@ export const DOMHandler = {
         buttonAddProject.classList.add("button-nav");
         buttonAddProject.setAttribute("id", "button-add-project");
 
-        const cancelButton = projectModal.querySelector("#cancel-button");
-        const closeModalButton = projectModal.querySelector("#close-modal");
-
         buttonAddProject.addEventListener("click", () => {
             this.showModal(projectModal);
-        });
-
-        cancelButton.addEventListener("click", () => {
-            this.resetModal(projectModal);
-            this.hideModal(projectModal);
-        });
-
-        closeModalButton.addEventListener("click", () => {
-            this.resetModal(projectModal);
-            this.hideModal(projectModal);
         });
 
         // code to handle projects here
@@ -186,6 +173,20 @@ export const DOMHandler = {
                         </div>
                     </div>
                 `;
+
+                const cancelButton = modal.querySelector("#cancel-button");
+                const closeModalButton = modal.querySelector("#close-modal");
+
+                cancelButton.addEventListener("click", () => {
+                    this.resetModal(modal);
+                    this.hideModal(modal);
+                });
+        
+                closeModalButton.addEventListener("click", () => {
+                    this.resetModal(modal);
+                    this.hideModal(modal);
+                });
+
                 break;
 
             case "task-modal":
