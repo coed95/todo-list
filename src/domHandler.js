@@ -98,11 +98,16 @@ export const DOMHandler = {
         const tasks = document.createElement("div");
         tasks.classList.add("task-list");
 
+        const taskModal = this.createModal("task-modal");
+
         const buttonAddTask = document.createElement("button");
+        buttonAddTask.textContent = "+ Add Task";
         buttonAddTask.classList.add("button-add-task");
         buttonAddTask.setAttribute("id", "button-add-task");
 
-        buttonAddTask.textContent = "+ Add Task";
+        buttonAddTask.addEventListener("click", () => {
+            this.showModal(taskModal);
+        });
 
         const buttonHome = nav.querySelector("#button-home");
         const buttonToday = nav.querySelector("#button-today");
@@ -120,13 +125,10 @@ export const DOMHandler = {
             this.loadContent("week");
         });
 
-        buttonAddTask.addEventListener("click", () => {
-            alert("nigger");
-        });
+        tasks.appendChild(buttonAddTask);
 
         content.appendChild(contentTitle);
-        content.appendChild(taskList);
-        content.appendChild(buttonAddTask);
+        content.appendChild(tasks);
 
         main.appendChild(nav);
         main.appendChild(content);
