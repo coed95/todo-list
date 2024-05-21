@@ -95,8 +95,8 @@ export const DOMHandler = {
 
         contentTitle.textContent = "Home";
 
-        const taskList = document.createElement("div");
-        taskList.classList.add("task-list");
+        const tasks = document.createElement("div");
+        tasks.classList.add("task-list");
 
         const buttonAddTask = document.createElement("button");
         buttonAddTask.classList.add("button-add-task");
