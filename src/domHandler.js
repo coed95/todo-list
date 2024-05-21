@@ -131,11 +131,10 @@ export const DOMHandler = {
             this.hideModal(taskModal);
         });
 
-        /*
         closeButtonTask.addEventListener("click", () => {
             this.resetModal(taskModal);
             this.hideModal(taskModal);
-        }); */
+        });
 
         const buttonHome = nav.querySelector("#button-home");
         const buttonToday = nav.querySelector("#button-today");
@@ -212,8 +211,8 @@ export const DOMHandler = {
                             <h2>Add a new task</h2>
                             <span class="close-modal" id="close-modal-task">&times;</span>
                         </div>
-                        <input type="text" placeholder="Title...">
-                        <input type="text" placeholder="Description...">
+                        <input class="task-name" id="task-name" type="text" placeholder="Title...">
+                        <input class="task-description" id="task-description" type="text" placeholder="Description...">
                         <div class="due-date">
                             <p>Due Date:</p>
                             <input class="new-date" type="date" name="new-todo" required="">
@@ -241,6 +240,13 @@ export const DOMHandler = {
         }
 
         modal.style.visibility = "hidden";
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                this.resetModal(modal);
+                this.hideModal(modal);
+            }
+        });
 
         return modal;
     },

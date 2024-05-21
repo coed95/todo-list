@@ -38,17 +38,16 @@
 
 .task-modal-content {
     max-width: 600px;
-    max-height: 500px;
+    max-height: 800px;
 }
 
 .modal-title {
     background-color: var(--modal-title-color);
     display: flex;
     justify-content: space-between;
-    height: 15%;
+    height: 25%;
     margin-bottom: 12px;
     max-height: 50px;
-    overflow: hidden;
     padding: 8px;
     width: 100%;
 }
@@ -65,6 +64,8 @@
 
 .modal-buttons {
     display: flex;
+    margin-bottom: 8px;
+    margin-top: 16px;
     justify-content: center;
     gap: 24px;
 }
@@ -94,7 +95,9 @@
     background-color: #f87171;
 }
 
-.project-name {
+.project-name,
+.task-name,
+.task-description {
     border: 1px solid #aaa;
     margin-bottom: 24px;
     width: 90%;
