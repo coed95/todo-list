@@ -22,13 +22,24 @@
     font-weight: bold;
 }
 
+.nav .img {
+    width: 15%;
+}
+
 .nav .button-nav.active,
 .nav .button-nav:hover {
     background-color: var(--button-active);
 }
 
-.nav .img {
-    width: 15%;
+.nav .button-project {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+
+nav .button-project:hover {
+    background-color: var(--button-active);
 }
 
 /* main */
