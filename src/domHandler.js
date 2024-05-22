@@ -217,14 +217,17 @@ export const DOMHandler = {
                             <p>Due Date:</p>
                             <input class="new-date" type="date" name="new-todo" required="">
                         </div>
+                        <div class="priority-wrapper">
                         <div class="priority">
-                            <p>Priority:</p>
-                            <input class="low-priority" id="low-priority" type="radio" value="low" required="">
-                            <label for="low-priority">Low</label>
-                            <input class="medium-priority" id="medium-priority" type="radio" value="medium" required="">
-                            <label for="medium-priority">Medium</label>
-                            <input class="high-priority" id="high-priority" type="radio" value="high" required="">
-                            <label for="high-priority">High</label>
+                            <p class="priority-title">Priority:</p>
+                            <input class="low" id="low-priority" type="radio" name="priority" value="low" required="">
+                            <label class="low priority-button" for="low-priority">Low</label>
+                            <input class="medium" id="medium-priority" type="radio" name="priority" value="medium" required="">
+                            <label class="medium priority-button" for="medium-priority">Medium</label>
+                            <input class="high" id="high-priority" type="radio" name="priority" value="high" required="">
+                            <label class="high priority-button" for="high-priority">High</label>
+                        </div>
+                    
                         </div>
                         <div class="modal-buttons">
                             <button class="add-button" id="add-button-task">Add</button>
