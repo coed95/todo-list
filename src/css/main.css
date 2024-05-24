@@ -77,8 +77,8 @@ nav .button-project:hover {
     border: 2px solid #3ba395;
     border-radius: 3px;
     margin-right: 1.5rem;
-    height: 1.2rem;
-    width: 2.5rem;
+    height: 1.5rem;
+    width: 2.2rem;
 }
 
 .task-title {
@@ -105,9 +105,17 @@ nav .button-project:hover {
     width: 4.5rem;
 }
 
+.task-images {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+}
+
 .task-edit,
 .task-delete {
     cursor: pointer;
     height: auto;
-    width: 12%;
+    min-height: 25px;
+    min-width: 25px;
+    width: 5%;
 }
