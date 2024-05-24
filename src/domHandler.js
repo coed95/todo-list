@@ -221,6 +221,9 @@ export const DOMHandler = {
         taskDate.classList.add("task-date");
         taskDate.textContent = task.dueDate;
 
+        const taskImages = document.createElement("div");
+        taskImages.classList.add("task-images");
+
         const taskEdit = document.createElement("img");
         taskEdit.classList.add("img");
         taskEdit.classList.add("task-edit");
@@ -228,17 +231,19 @@ export const DOMHandler = {
         taskEdit.alt = "Edit";
 
         const taskDelete = document.createElement("img");
-        taskEdit.classList.add("img");
+        taskDelete.classList.add("img");
         taskDelete.classList.add("task-delete");
         taskEdit.src = Delete;
         taskEdit.alt = "Delete";
+
+        taskImages.appendChild(taskEdit);
+        taskImages.appendChild(taskDelete);
 
         taskWrapper.appendChild(taskCheckbox);
         taskWrapper.appendChild(taskName);
         taskWrapper.appendChild(taskDetails);
         taskWrapper.appendChild(taskDate);
-        taskWrapper.appendChild(taskEdit);
-        taskWrapper.appendChild(taskDelete);
+        taskWrapper.appendChild(taskImages);
 
         tasks.appendChild(taskWrapper);
 
