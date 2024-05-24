@@ -63,3 +63,51 @@ nav .button-project:hover {
     padding-left: 0;
     text-align: left;
 }
+
+.task {
+    align-items: center;
+    background-color: var(--primary-light);
+    display: flex;
+    height: 4rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.task-checkbox {
+    border: 2px solid #3ba395;
+    border-radius: 3px;
+    margin-right: 1.5rem;
+    height: 1.2rem;
+    width: 2.5rem;
+}
+
+.task-title {
+    font-weight: 300;
+    margin-right: auto;
+}
+
+.task-details {
+    border: 1px solid #3ba395;
+    border-radius: 3px;
+    color: #3ba395;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-right: 2.5rem;
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+}
+
+.task-date {
+    color: #501f3a;
+    font-size: 1rem;
+    margin-right: 2rem;
+    width: 4.5rem;
+}
+
+.task-edit,
+.task-delete {
+    cursor: pointer;
+    height: auto;
+    width: 12%;
+}
