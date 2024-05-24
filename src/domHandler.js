@@ -2,7 +2,11 @@ import Home from "../src/img/home.svg";
 import Today from "../src/img/today.svg";
 import Week from "../src/img/week.svg";
 
-import { handleButtonClick } from "./buttonUtils";
+import Edit from "../src/img/edit.svg";
+import Delete from "../src/img/delete.svg";
+
+import { handleButtonClick } from "../src/buttonUtils.js";
+import { Todo, Project } from "../src/appLogic.js";
 
 export const DOMHandler = {
     createHeader: function(name) {
@@ -136,26 +140,32 @@ export const DOMHandler = {
             this.hideModal(taskModal);
         });
 
+        const home = Project("Home");
+        const today = Project("Today");
+        const week = Project("Week");
+
+        // debug
+        home.addTodo(Todo("debug", "this is to fix tasks", "today", "low"));
+
         const buttonHome = nav.querySelector("#button-home");
         const buttonToday = nav.querySelector("#button-today");
         const buttonWeek = nav.querySelector("#button-week");
 
         buttonHome.addEventListener("click", () => {
-            this.loadContent("home");
+            this.renderProject(home);
         });
 
         buttonToday.addEventListener("click", () => {
-            this.loadContent("today");
+            this.renderProject(today);
         });
 
         buttonWeek.addEventListener("click", () => {
-            this.loadContent("week");
+            this.renderProject(week);
         });
-
-        tasks.appendChild(buttonAddTask);
 
         content.appendChild(contentTitle);
         content.appendChild(tasks);
+        content.appendChild(buttonAddTask);
 
         main.appendChild(nav);
         main.appendChild(content);
@@ -180,6 +190,61 @@ export const DOMHandler = {
         button.appendChild(name);
 
         return button;
+    },
+
+    renderProject: function(project) {
+        const contentTitle = document.querySelector(".content-title");
+        contentTitle.textContent = project.name;
+        
+        project.todos.forEach(task => {
+            this.renderTask(task);
+        });
+    },
+
+    renderTask: function(task) {
+        const tasks = document.querySelector(".task-list");
+
+        const taskWrapper = document.createElement("div");
+        taskWrapper.classList.add("task");
+        
+        const taskCheckbox = document.createElement("div");
+        taskCheckbox.classList.add("task-checkbox");
+
+        const taskName = document.createElement("p");
+        taskName.classList.add("task-title");
+        taskName.textContent = task.name;
+
+        const taskDetails = document.createElement("button");
+        taskDetails.classList.add("task-details");
+
+        const taskDate = document.createElement("p");
+        taskDate.classList.add("task-date");
+        taskDate.textContent = task.dueDate;
+
+        const taskEdit = document.createElement("img");
+        taskEdit.classList.add("img");
+        taskEdit.classList.add("task-edit");
+        taskEdit.src = Edit;
+        taskEdit.alt = "Edit";
+
+        const taskDelete = document.createElement("img");
+        taskEdit.classList.add("img");
+        taskDelete.classList.add("task-delete");
+        taskEdit.src = Delete;
+        taskEdit.alt = "Delete";
+
+        taskWrapper.appendChild(taskCheckbox);
+        taskWrapper.appendChild(taskName);
+        taskWrapper.appendChild(taskDetails);
+        taskWrapper.appendChild(taskDate);
+        taskWrapper.appendChild(taskEdit);
+        taskWrapper.appendChild(taskDelete);
+
+        tasks.appendChild(taskWrapper);
+
+        // check priority
+        // check details
+        // delete tasks
     },
 
     createModal: function(modalName) {
@@ -252,33 +317,6 @@ export const DOMHandler = {
         });
 
         return modal;
-    },
-
-    loadContent: function(page) {
-        const content = document.querySelector(".content");
-        const contentTitle = document.querySelector(".content-title");
-        const taskList = document.querySelector(".task-list");
-
-        switch (page) {
-            case "home":
-                contentTitle.textContent = "Home";
-                // load all tasks
-                break;
-            
-            case "today":
-                contentTitle.textContent = "Today";
-                // load daily tasks
-                break;
-
-            case "week":
-                contentTitle.textContent = "Week";
-                // load weekly tasks
-                break;
-
-            default:
-                console.log("Error: unknown page name");
-                break;
-        }
     },
 
     showModal: function(modal) {
