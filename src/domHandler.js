@@ -2,7 +2,7 @@ import Home from "../src/img/home.svg";
 import Today from "../src/img/today.svg";
 import Week from "../src/img/week.svg";
 
-import { handleButtonClick, setActiveButton } from "./buttonUtils";
+import { handleButtonClick } from "./buttonUtils";
 
 export const DOMHandler = {
     createHeader: function(name) {
