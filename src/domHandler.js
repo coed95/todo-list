@@ -2,11 +2,10 @@ import Home from "../src/img/home.svg";
 import Today from "../src/img/today.svg";
 import Week from "../src/img/week.svg";
 
-import Edit from "../src/img/edit.svg";
 import Delete from "../src/img/delete.svg";
 
 import { handleButtonClick } from "../src/buttonUtils.js";
-import { Todo, Project } from "../src/appLogic.js";
+import { Project, Todo } from "../src/appLogic.js";
 
 export const DOMHandler = {
     createHeader: function(name) {
@@ -69,15 +68,15 @@ export const DOMHandler = {
             this.showModal(projectModal);
         });
 
-        const cancelButtonProject = projectModal.querySelector("#cancel-button-project");
-        const closeButtonProject = projectModal.querySelector("#close-modal-project");
+        const buttonCancelModalProject = projectModal.querySelector("#cancel-button-project");
+        const buttonCloseModalProject = projectModal.querySelector("#close-modal-project");
 
-        cancelButtonProject.addEventListener("click", () => {
+        buttonCancelModalProject.addEventListener("click", () => {
             this.resetModal(projectModal);
             this.hideModal(projectModal);
         });
 
-        closeButtonProject.addEventListener("click", () => {
+        buttonCloseModalProject.addEventListener("click", () => {
             this.resetModal(projectModal);
             this.hideModal(projectModal);
         });
@@ -106,6 +105,7 @@ export const DOMHandler = {
 
         const content = document.createElement("div");
         content.classList.add("content");
+        content.classList.add("home");
 
         const contentTitle = document.createElement("h2");
         contentTitle.classList.add("content-title");
@@ -127,15 +127,20 @@ export const DOMHandler = {
             this.showModal(taskModal);
         });
 
-        const cancelButtonTask = taskModal.querySelector("#cancel-button-task");
-        const closeButtonTask = taskModal.querySelector("#close-modal-task");
+        const buttonAddModalTask = taskModal.querySelector("#add-button-task");
+        const buttonCancelModalTask = taskModal.querySelector("#cancel-button-task");
+        const buttonCloseModalTask = taskModal.querySelector("#close-modal-task");
 
-        cancelButtonTask.addEventListener("click", () => {
+        buttonAddModalTask.addEventListener("click", () => {
+            alert("wtf");
+        });
+
+        buttonCancelModalTask.addEventListener("click", () => {
             this.resetModal(taskModal);
             this.hideModal(taskModal);
         });
 
-        closeButtonTask.addEventListener("click", () => {
+        buttonCloseModalTask.addEventListener("click", () => {
             this.resetModal(taskModal);
             this.hideModal(taskModal);
         });
@@ -147,23 +152,29 @@ export const DOMHandler = {
         const today = Project("Today");
         const week = Project("Week");
 
-        // debug
-        home.addTodo(Todo("debug", "this is to fix tasks", "today", "low"));
-
         const buttonHome = nav.querySelector("#button-home");
         const buttonToday = nav.querySelector("#button-today");
         const buttonWeek = nav.querySelector("#button-week");
 
         buttonHome.addEventListener("click", () => {
             this.renderProject(home);
+            content.classList.add("home");
+            content.classList.remove("today");
+            content.classList.remove("week");
         });
 
         buttonToday.addEventListener("click", () => {
             this.renderProject(today);
+            content.classList.add("today");
+            content.classList.remove("home");
+            content.classList.remove("week");
         });
 
         buttonWeek.addEventListener("click", () => {
             this.renderProject(week);
+            content.classList.add("week");
+            content.classList.remove("home");
+            content.classList.remove("today");
         });
 
         content.appendChild(contentTitle);
@@ -200,11 +211,11 @@ export const DOMHandler = {
         contentTitle.textContent = project.name;
         
         project.todos.forEach(task => {
-            this.renderTask(task);
+            this.renderTask(project, task);
         });
     },
 
-    renderTask: function(task) {
+    renderTask: function(project, task) {
         const tasks = document.querySelector(".task-list");
         const detailsModal = document.querySelector(".details-modal");
 
@@ -235,20 +246,25 @@ export const DOMHandler = {
         const taskImages = document.createElement("div");
         taskImages.classList.add("task-images");
 
-        const taskEdit = document.createElement("img");
-        taskEdit.classList.add("img");
-        taskEdit.classList.add("task-edit");
-        taskEdit.src = Edit;
-        taskEdit.alt = "Edit";
-
         const taskDelete = document.createElement("img");
         taskDelete.classList.add("img");
         taskDelete.classList.add("task-delete");
-        taskEdit.src = Delete;
-        taskEdit.alt = "Delete";
+        taskDelete.src = Delete;
+        taskDelete.alt = "Delete";
+
+        taskDelete.addEventListener("click", () => {
+            const index = project.todos.indexOf(task);
+
+            if (index !== -1) {
+                project.todos.splice(index, 1);
+                // taskWrapper.remove();
+            }
+            else {
+                console.log("Error: Task not found in project");
+            }
+        });
 
         taskImages.appendChild(taskDelete);
-        taskImages.appendChild(taskEdit);
 
         taskWrapper.appendChild(taskCheckbox);
         taskWrapper.appendChild(taskName);
@@ -258,9 +274,25 @@ export const DOMHandler = {
 
         tasks.appendChild(taskWrapper);
 
-        // check priority
-        // check details
-        // delete tasks
+        const taskPriority = task.priority;
+
+        switch (taskPriority) {
+            case 1:
+                taskWrapper.style.borderLeft = "3px solid green";
+                break;
+
+            case 2:
+                taskWrapper.style.borderLeft = "3px solid orange";
+                break;
+
+            case 3:
+                taskWrapper.style.borderLeft = "3px solid red";
+                break;
+
+            default:
+                console.log("Error: wrong priority argument");
+                break;
+        }
     },
 
     createModal: function(modalName) {
@@ -390,5 +422,9 @@ export const DOMHandler = {
                 console.log("Error: unknown modal type");
                 break;
         }
-    }
+    },
+
+    deleteModal: function(modal) {
+        modal.innerHTML = '';
+    },
 };
