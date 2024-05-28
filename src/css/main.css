@@ -77,7 +77,7 @@ nav .button-project:hover {
     border: 2px solid #3ba395;
     border-radius: 3px;
     margin-right: 1.5rem;
-    height: 1.5rem;
+    height: 1.3rem;
     width: 2.2rem;
 }
 
@@ -91,11 +91,19 @@ nav .button-project:hover {
     border-radius: 3px;
     color: #3ba395;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 700;
-    margin-right: 2.5rem;
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-right: 1.5rem;
+    max-width: 80px;
     padding: .5rem 1rem;
+    text-align: center;
     text-transform: uppercase;
+}
+
+.task-details:hover {
+    background-color: #3ba395;
+    color: white;
 }
 
 .task-date {

@@ -140,6 +140,9 @@ export const DOMHandler = {
             this.hideModal(taskModal);
         });
 
+        const detailsModal = this.createModal("details-modal");
+        document.body.appendChild(detailsModal);
+
         const home = Project("Home");
         const today = Project("Today");
         const week = Project("Week");
@@ -203,19 +206,27 @@ export const DOMHandler = {
 
     renderTask: function(task) {
         const tasks = document.querySelector(".task-list");
+        const detailsModal = document.querySelector(".details-modal");
 
         const taskWrapper = document.createElement("div");
         taskWrapper.classList.add("task");
         
-        const taskCheckbox = document.createElement("div");
+        const taskCheckbox = document.createElement("input");
+        taskCheckbox.type = "checkbox";
         taskCheckbox.classList.add("task-checkbox");
+        taskCheckbox.checked = false;
 
         const taskName = document.createElement("p");
         taskName.classList.add("task-title");
-        taskName.textContent = task.name;
+        taskName.textContent = task.title;
 
         const taskDetails = document.createElement("button");
         taskDetails.classList.add("task-details");
+        taskDetails.textContent = "Details";
+
+        taskDetails.addEventListener("click", () => {
+            this.showModal(detailsModal);
+        });
 
         const taskDate = document.createElement("p");
         taskDate.classList.add("task-date");
@@ -236,8 +247,8 @@ export const DOMHandler = {
         taskEdit.src = Delete;
         taskEdit.alt = "Delete";
 
-        taskImages.appendChild(taskEdit);
         taskImages.appendChild(taskDelete);
+        taskImages.appendChild(taskEdit);
 
         taskWrapper.appendChild(taskCheckbox);
         taskWrapper.appendChild(taskName);
@@ -306,10 +317,41 @@ export const DOMHandler = {
                     </div>
                 `;
                 break;
+            
+            case "details-modal":
+                modal.innerHTML = `
+                    <div class="details-modal-content">
+                        <div class="modal-title">
+                            <h2></h2>
+                            <span class="close-modal" id="close-modal-task">&times;</span>
+                        </div>
 
-                default:
-                    console.log("Error: unknown modal type");
-                    break;
+                        <div class="modal-details-project">
+                            <span>Project:</span>
+                            <span></span>
+                        </div>
+
+                        <div class="modal-details-priority">
+                            <span>Priority:</span>
+                            <span></span>
+                        </div>
+
+                        <div class="modal-details-due-date">
+                            <span>Due Date:</span>
+                            <span></span>
+                        </div>
+
+                        <div class="modal-details-description">
+                            <span>Description:</span>
+                            </span></span>
+                        </div>
+                    </div>
+                `;
+                break;
+
+            default:
+                console.log("Error: unknown modal type");
+                break;
         }
 
         modal.style.visibility = "hidden";
