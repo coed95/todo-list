@@ -14,7 +14,14 @@ export function Project(name) {
         todos: [],
 
         addTodo: function(todo) {
-            this.todos.push(todo);
+            const existingTodo = this.todos.findIndex(existing => existing.title === todo.title);
+
+            if (existingTodo !== -1) {
+                console.log("Todo with the same title already exists");
+            }
+            else {
+                this.todos.push(todo);
+            }
         },
 
         editTodo: function(index, todo) {
