@@ -1,11 +1,7 @@
-import Home from "../src/img/home.svg";
-import Today from "../src/img/today.svg";
-import Week from "../src/img/week.svg";
-
 import Delete from "../src/img/delete.svg";
 
 import { handleButtonClick } from "../src/buttonUtils.js";
-import { Project, Todo } from "../src/appLogic.js";
+import { Project, Projects, Todo } from "../src/appLogic.js";
 
 export const DOMHandler = {
     createHeader: function(name) {
@@ -25,31 +21,6 @@ export const DOMHandler = {
         const nav = document.createElement("nav");
         nav.classList.add("nav");
         nav.setAttribute("id", "nav");
-
-        const taskTitle = document.createElement("h1");
-        taskTitle.textContent = "Tasks";
-
-        const buttonHome = this.createNavButton("Home", Home);
-        const buttonToday = this.createNavButton("Today", Today);
-        const buttonWeek = this.createNavButton("Week", Week);
-
-        buttonHome.setAttribute("id", "button-home");
-        buttonToday.setAttribute("id", "button-today");
-        buttonWeek.setAttribute("id", "button-week");
-
-        buttonHome.classList.add("active");
-
-        buttonHome.addEventListener("click", () => {
-            handleButtonClick(buttonHome);
-        });
-
-        buttonToday.addEventListener("click", () => {
-            handleButtonClick(buttonToday);
-        });
-
-        buttonWeek.addEventListener("click", () => {
-            handleButtonClick(buttonWeek);
-        });
 
         const projectTitle = document.createElement("h1");
         projectTitle.textContent = "Projects";
@@ -81,15 +52,45 @@ export const DOMHandler = {
             this.hideModal(projectModal);
         });
 
-        // code to handle projects here
+        const defaultList = document.createElement("div");
+
+        const defaultProjects = Object.entries(Projects)
+                                      .filter(([, value]) => typeof value !== 'function')
+                                      .slice(0, 3); // Get Home, Today and Week
+    
+        const customProjects = Object.entries(Projects)
+                                     .filter(([, value]) => typeof value !== 'function')
+                                     .slice(3); // Get the rest of the projects
+    
+        defaultProjects.forEach(([projectName, project]) => {
+            const button = this.createNavButton(projectName, project.image);
+            button.setAttribute("id", "button-" + projectName.toLowerCase());
+        
+            if (projectName === "Home") {
+                button.classList.add("active");
+            }
+        
+            button.addEventListener("click", () => {
+                handleButtonClick(button);
+            });
+        
+            defaultList.appendChild(button);
+        });
+    
+        customProjects.forEach(([projectName, project]) => {
+            const button = this.createNavButton(projectName, project.image);
+            button.setAttribute("id", "button-" + projectName.toLowerCase());
+        
+            button.addEventListener("click", () => {
+                handleButtonClick(button);
+            });
+        
+            projects.appendChild(button);
+        });
 
         projects.appendChild(buttonAddProject);
 
-        nav.appendChild(taskTitle);
-        nav.appendChild(buttonHome);
-        nav.appendChild(buttonToday);
-        nav.appendChild(buttonWeek);
-
+        nav.appendChild(defaultList);
         nav.appendChild(projectTitle);
         nav.appendChild(projects);
         nav.appendChild(projectModal);
@@ -148,33 +149,16 @@ export const DOMHandler = {
         const detailsModal = this.createModal("details-modal");
         document.body.appendChild(detailsModal);
 
-        const home = Project("Home");
-        const today = Project("Today");
-        const week = Project("Week");
+        Object.entries(Projects)
+            .filter(([key, value]) => typeof value !== 'function')
+            .forEach(([projectName, project]) => {
+                const button = nav.querySelector("#button-" + projectName.toLowerCase());
 
-        const buttonHome = nav.querySelector("#button-home");
-        const buttonToday = nav.querySelector("#button-today");
-        const buttonWeek = nav.querySelector("#button-week");
-
-        buttonHome.addEventListener("click", () => {
-            this.renderProject(home);
-            content.classList.add("home");
-            content.classList.remove("today");
-            content.classList.remove("week");
-        });
-
-        buttonToday.addEventListener("click", () => {
-            this.renderProject(today);
-            content.classList.add("today");
-            content.classList.remove("home");
-            content.classList.remove("week");
-        });
-
-        buttonWeek.addEventListener("click", () => {
-            this.renderProject(week);
-            content.classList.add("week");
-            content.classList.remove("home");
-            content.classList.remove("today");
+                button.addEventListener("click", () => {
+                    this.renderProject(Projects[projectName]);
+                    content.className = "content";
+                    content.classList.add(projectName.toLowerCase());
+                });
         });
 
         content.appendChild(contentTitle);
