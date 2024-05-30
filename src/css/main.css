@@ -22,6 +22,10 @@
     font-weight: bold;
 }
 
+.nav #button-add-project {
+    margin-top: 1.5rem;
+}
+
 .nav .img {
     width: 15%;
 }
