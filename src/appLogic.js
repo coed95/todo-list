@@ -57,11 +57,16 @@ export const Projects = {
     Test2: Project("Test 2"),
     Test3: Project("Test 3"),
 
-    add: function(name) {
-        this[name] = Project(name);
+    addProject: function(name) {
+        if (!this.hasOwnProperty(name)) {
+            this[name] = Project(name);
+        }
+        else {
+            alert(`Project "${name}" already exists.`);
+        }
     },
 
-    delete: function(name) {
+    deleteProject: function(name) {
         if (Object.keys(this).length > 3 && this.hasOwnProperty(name)) {
             delete this[name];
         }
