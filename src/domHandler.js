@@ -29,29 +29,6 @@ export const DOMHandler = {
         projects.classList.add("projects-list");
         projects.setAttribute("id", "projects-list");
 
-        const projectModal = this.createModal("project-modal");
-
-        const buttonAddProject = this.createNavButton("+ Add Project");
-        buttonAddProject.classList.add("button-nav");
-        buttonAddProject.setAttribute("id", "button-add-project");
-
-        buttonAddProject.addEventListener("click", () => {
-            this.showModal(projectModal);
-        });
-
-        const buttonCancelModalProject = projectModal.querySelector("#cancel-button-project");
-        const buttonCloseModalProject = projectModal.querySelector("#close-modal-project");
-
-        buttonCancelModalProject.addEventListener("click", () => {
-            this.resetModal(projectModal);
-            this.hideModal(projectModal);
-        });
-
-        buttonCloseModalProject.addEventListener("click", () => {
-            this.resetModal(projectModal);
-            this.hideModal(projectModal);
-        });
-
         const defaultList = document.createElement("div");
 
         const defaultProjects = Object.entries(Projects)
@@ -78,14 +55,67 @@ export const DOMHandler = {
         });
     
         customProjects.forEach(([projectName, project]) => {
+            const wrapper = document.createElement("div");
+            wrapper.classList.add("button-wrapper");
+
             const button = this.createNavButton(projectName, project.image);
             button.setAttribute("id", "button-" + projectName.toLowerCase());
         
             button.addEventListener("click", () => {
                 handleButtonClick(button);
             });
+
+            const deleteButton = document.createElement("span");
+            deleteButton.classList.add("delete-button");
+            deleteButton.innerHTML = "&times;";
+
+            deleteButton.addEventListener("click", () => {
+                const confirmDelete = confirm(`Are you sure you want to delete "${projectName}"?`);
+
+                if (confirmDelete) {
+                    Projects.deleteProject(projectName);
+                    wrapper.remove();
+                }
+            });
+
+            wrapper.appendChild(button);
+            wrapper.appendChild(deleteButton);
         
-            projects.appendChild(button);
+            projects.appendChild(wrapper);
+        });
+
+        const projectModal = this.createModal("project-modal");
+
+        const buttonAddProject = this.createNavButton("+ Add Project");
+        buttonAddProject.classList.add("button-nav");
+        buttonAddProject.setAttribute("id", "button-add-project");
+
+        buttonAddProject.addEventListener("click", () => {
+            this.showModal(projectModal);
+        });
+
+        const buttonAddProjectModal = projectModal.querySelector("#add-button-project");
+        const buttonCancelModalProject = projectModal.querySelector("#cancel-button-project");
+        const buttonCloseModalProject = projectModal.querySelector("#close-modal-project");
+
+        buttonAddProjectModal.addEventListener("click", () => {
+            const projectModalName = projectModal.querySelector("#project-name").value;
+            Projects.addProject(projectModalName);
+
+            if (Projects.hasOwnProperty(projectModalName)) {
+                this.resetModal(projectModal);
+                this.hideModal(projectModal);
+            }
+        });
+
+        buttonCancelModalProject.addEventListener("click", () => {
+            this.resetModal(projectModal);
+            this.hideModal(projectModal);
+        });
+
+        buttonCloseModalProject.addEventListener("click", () => {
+            this.resetModal(projectModal);
+            this.hideModal(projectModal);
         });
 
         projects.appendChild(buttonAddProject);
