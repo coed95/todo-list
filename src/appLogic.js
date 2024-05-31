@@ -58,11 +58,14 @@ export const Projects = {
     Test3: Project("Test 3"),
 
     addProject: function(name) {
-        if (!this.hasOwnProperty(name)) {
-            this[name] = Project(name);
+        if (this.hasOwnProperty(name)) {
+            alert(`Project "${name}" already exists.`);
+        }
+        else if (name === "") {
+            alert("Project name cannot be empty");
         }
         else {
-            alert(`Project "${name}" already exists.`);
+            this[name] = Project(name);
         }
     },
 
