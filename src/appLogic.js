@@ -53,9 +53,6 @@ export const Projects = {
     Home: Project("Home", Home),
     Today: Project("Today", Today),
     Week: Project("Week", Week),
-    Test: Project("Test"),
-    Test2: Project("Test 2"),
-    Test3: Project("Test 3"),
 
     addProject: function(name) {
         if (this.hasOwnProperty(name)) {
