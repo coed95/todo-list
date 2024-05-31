@@ -55,32 +55,7 @@ export const DOMHandler = {
         });
     
         customProjects.forEach(([projectName, project]) => {
-            const wrapper = document.createElement("div");
-            wrapper.classList.add("button-wrapper");
-
-            const button = this.createNavButton(projectName, project.image);
-            button.setAttribute("id", "button-" + projectName.toLowerCase());
-        
-            button.addEventListener("click", () => {
-                handleButtonClick(button);
-            });
-
-            const deleteButton = document.createElement("span");
-            deleteButton.classList.add("delete-button");
-            deleteButton.innerHTML = "&times;";
-
-            deleteButton.addEventListener("click", () => {
-                const confirmDelete = confirm(`Are you sure you want to delete "${projectName}"?`);
-
-                if (confirmDelete) {
-                    Projects.deleteProject(projectName);
-                    wrapper.remove();
-                }
-            });
-
-            wrapper.appendChild(button);
-            wrapper.appendChild(deleteButton);
-        
+            const wrapper = this.createProjectButton(projectName, project.image);
             projects.appendChild(wrapper);
         });
 
@@ -100,11 +75,27 @@ export const DOMHandler = {
 
         buttonAddProjectModal.addEventListener("click", () => {
             const projectModalName = projectModal.querySelector("#project-name").value;
-            Projects.addProject(projectModalName);
+        
+            if (!Projects.hasOwnProperty(projectModalName)) {
+                Projects.addProject(projectModalName);
+        
+                const newProject = Projects[projectModalName];
+                const wrapper = this.createProjectButton(projectModalName, newProject.image);
 
-            if (Projects.hasOwnProperty(projectModalName)) {
+                projects.insertBefore(wrapper, buttonAddProject);
+
+                const newButton = wrapper.querySelector(`#button-${projectModalName.toLowerCase()}`);
+                newButton.addEventListener("click", () => {
+                    const content = document.querySelector(".content");
+                    content.className = "content";
+                    content.classList.add(projectModalName.toLowerCase());
+                    this.renderProject(newProject);
+                });
+        
                 this.resetModal(projectModal);
                 this.hideModal(projectModal);
+            } else {
+                alert(`Project "${projectModalName}" already exists.`);
             }
         });
 
@@ -163,7 +154,7 @@ export const DOMHandler = {
         const buttonCloseModalTask = taskModal.querySelector("#close-modal-task");
 
         buttonAddModalTask.addEventListener("click", () => {
-            alert("wtf");
+            // do nothing for now
         });
 
         buttonCancelModalTask.addEventListener("click", () => {
@@ -205,7 +196,9 @@ export const DOMHandler = {
         const button = document.createElement("button");
         button.classList.add("button-nav");
 
-        const name = document.createTextNode(buttonName);
+        const name = document.createElement("span");
+        name.textContent = buttonName;
+        name.classList.add("button-text");
 
         if (buttonImg) {
             const img = document.createElement("img");
@@ -218,6 +211,36 @@ export const DOMHandler = {
         button.appendChild(name);
 
         return button;
+    },
+
+    createProjectButton: function(projectName, projectImage) {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("button-wrapper");
+    
+        const button = this.createNavButton(projectName, projectImage);
+        button.setAttribute("id", "button-" + projectName.toLowerCase());
+    
+        button.addEventListener("click", () => {
+            handleButtonClick(button);
+        });
+    
+        const deleteButton = document.createElement("span");
+        deleteButton.classList.add("delete-button");
+        deleteButton.innerHTML = "&times;";
+    
+        deleteButton.addEventListener("click", () => {
+            const confirmDelete = confirm(`Are you sure you want to delete the project "${projectName}"?`);
+    
+            if (confirmDelete) {
+                Projects.deleteProject(projectName);
+                wrapper.remove();
+            }
+        });
+    
+        wrapper.appendChild(button);
+        wrapper.appendChild(deleteButton);
+    
+        return wrapper;
     },
 
     renderProject: function(project) {
