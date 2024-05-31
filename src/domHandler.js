@@ -154,7 +154,7 @@ export const DOMHandler = {
         const buttonCloseModalTask = taskModal.querySelector("#close-modal-task");
 
         buttonAddModalTask.addEventListener("click", () => {
-            // do nothing for now
+            // will make another day
         });
 
         buttonCancelModalTask.addEventListener("click", () => {
@@ -294,7 +294,7 @@ export const DOMHandler = {
 
             if (index !== -1) {
                 project.todos.splice(index, 1);
-                // taskWrapper.remove();
+                taskWrapper.remove();
             }
             else {
                 console.log("Error: Task not found in project");
@@ -330,6 +330,31 @@ export const DOMHandler = {
                 console.log("Error: wrong priority argument");
                 break;
         }
+    },
+
+    createTodoFromModal: function() {
+        const title = document.getElementById("task-name").value !== "" ? document.getElementById("task-name").value : "Default";
+        const description = document.getElementById("task-description").value;
+        const dueDate = document.querySelector(".new-date").value !== "" ? document.querySelector(".new-date").value : "Today";
+        const priorityInputs = document.querySelectorAll("input[name='priority']");
+        let priority;
+
+        for (let index = 0; index < priorityInputs.length; index++) {
+            if (priorityInputs[index].checked) {
+                priority = index + 1;
+                break;
+            }
+
+            // be sure that at least one radio button is checked
+            if (index > 2) {
+                priority = 0;
+                break;
+            }
+        }
+
+        priority = priority === 0 ? 1 : priority;
+
+        return Todo(title, description, dueDate, priority);
     },
 
     createModal: function(modalName) {
