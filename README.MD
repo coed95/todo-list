@@ -26,3 +26,4 @@ Things to do:
 - be sure that when Add Task is clicked the modal references properly to its parent, so that the task is added to the correct project
 - add the option to include new custom projects
 - format date and put them in the right folders
+- fix the add project button, so that it adds the projects to the nav properly
