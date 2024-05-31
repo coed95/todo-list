@@ -12,6 +12,27 @@
     padding: 10px;
 }
 
+.nav .button-wrapper {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.nav .delete-button {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 18px;
+    margin-top: 12px;
+    max-height: 30px;
+    padding: 4px;
+    transition: background-color 0.1s ease;
+}
+
+.nav .delete-button:hover {
+    background-color: var(--button-active);
+}
+
 .nav .button-nav {
     background-color: var(--secondary-light);
     text-align: left;
