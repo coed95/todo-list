@@ -74,21 +74,24 @@ export const DOMHandler = {
         const buttonCloseModalProject = projectModal.querySelector("#close-modal-project");
 
         buttonAddProjectModal.addEventListener("click", () => {
+            // oh madonna
+            // this replaces all spaces with '-', so that the class name is stored properly in the div content
             const projectModalName = projectModal.querySelector("#project-name").value;
+            const sanitizedProjectModalName = projectModalName.trim().toLowerCase().replace(/\s+/g, '-');
         
-            if (!Projects.hasOwnProperty(projectModalName)) {
-                Projects.addProject(projectModalName);
+            if (!Projects.hasOwnProperty(sanitizedProjectModalName)) {
+                Projects.addProject(sanitizedProjectModalName);
         
-                const newProject = Projects[projectModalName];
+                const newProject = Projects[sanitizedProjectModalName];
                 const wrapper = this.createProjectButton(projectModalName, newProject.image);
 
                 projects.insertBefore(wrapper, buttonAddProject);
 
-                const newButton = wrapper.querySelector(`#button-${projectModalName.toLowerCase()}`);
+                const newButton = wrapper.querySelector(`#button-${sanitizedProjectModalName.toLowerCase()}`);
                 newButton.addEventListener("click", () => {
                     const content = document.querySelector(".content");
                     content.className = "content";
-                    content.classList.add(projectModalName.toLowerCase());
+                    content.classList.add(sanitizedProjectModalName);
                     this.renderProject(newProject);
                 });
         
@@ -132,7 +135,7 @@ export const DOMHandler = {
         const contentTitle = document.createElement("h2");
         contentTitle.classList.add("content-title");
 
-        contentTitle.textContent = "Home";
+        contentTitle.textContent = "home";
 
         const tasks = document.createElement("div");
         tasks.classList.add("task-list");
@@ -154,7 +157,21 @@ export const DOMHandler = {
         const buttonCloseModalTask = taskModal.querySelector("#close-modal-task");
 
         buttonAddModalTask.addEventListener("click", () => {
-            // will make another day
+            const currentContent = document.querySelector(".content");
+            const currentProject = currentContent.classList[1];
+
+            const todo = this.createTodoFromModal();
+
+            if (todo !== null) {
+                Projects[currentProject].addTodo(todo);
+                this.renderTask(Projects[currentProject], todo);
+
+                this.resetModal(taskModal);
+                this.hideModal(taskModal);
+            }
+            else {
+                alert("Task name cannot be empty or contain weird symbols");
+            }
         });
 
         buttonCancelModalTask.addEventListener("click", () => {
@@ -174,11 +191,12 @@ export const DOMHandler = {
             .filter(([key, value]) => typeof value !== 'function')
             .forEach(([projectName, project]) => {
                 const button = nav.querySelector("#button-" + projectName.toLowerCase());
+                const sanitizedProjectName = projectName.trim().toLowerCase().replace(/\s+/g, '-')
 
                 button.addEventListener("click", () => {
-                    this.renderProject(Projects[projectName]);
+                    this.renderProject(Projects[sanitizedProjectName]);
                     content.className = "content";
-                    content.classList.add(projectName.toLowerCase());
+                    content.classList.add(sanitizedProjectName);
                 });
         });
 
@@ -216,9 +234,11 @@ export const DOMHandler = {
     createProjectButton: function(projectName, projectImage) {
         const wrapper = document.createElement("div");
         wrapper.classList.add("button-wrapper");
+
+        const sanitizedProjectName = projectName.trim().toLowerCase().replace(/\s+/g, '-')
     
         const button = this.createNavButton(projectName, projectImage);
-        button.setAttribute("id", "button-" + projectName.toLowerCase());
+        button.setAttribute("id", "button-" + sanitizedProjectName);
     
         button.addEventListener("click", () => {
             handleButtonClick(button);
@@ -229,11 +249,16 @@ export const DOMHandler = {
         deleteButton.innerHTML = "&times;";
     
         deleteButton.addEventListener("click", () => {
+            const content = document.querySelector(".content");
             const confirmDelete = confirm(`Are you sure you want to delete the project "${projectName}"?`);
     
             if (confirmDelete) {
-                Projects.deleteProject(projectName);
+                Projects.deleteProject(sanitizedProjectName);
                 wrapper.remove();
+
+                content.className = "content";
+                content.classList.add("home");
+                this.renderProject(Projects["home"]);
             }
         });
     
@@ -246,6 +271,9 @@ export const DOMHandler = {
     renderProject: function(project) {
         const contentTitle = document.querySelector(".content-title");
         contentTitle.textContent = project.name;
+
+        const tasksList = document.querySelector(".task-list");
+        tasksList.innerHTML = "";
         
         project.todos.forEach(task => {
             this.renderTask(project, task);
@@ -262,7 +290,11 @@ export const DOMHandler = {
         const taskCheckbox = document.createElement("input");
         taskCheckbox.type = "checkbox";
         taskCheckbox.classList.add("task-checkbox");
-        taskCheckbox.checked = false;
+        taskCheckbox.checked = task.completed ? true : false;
+
+        taskCheckbox.addEventListener("change", () => {
+            task.completed = taskCheckbox.checked ? true : false;
+        });
 
         const taskName = document.createElement("p");
         taskName.classList.add("task-title");
@@ -301,6 +333,29 @@ export const DOMHandler = {
             }
         });
 
+        const taskPriority = task.priority;
+
+        switch (taskPriority) {
+            case 1:
+                taskWrapper.style.borderLeft = "3px solid green";
+                taskWrapper.classList.add("low-priority");
+                break;
+
+            case 2:
+                taskWrapper.style.borderLeft = "3px solid orange";
+                taskWrapper.classList.add("medium-priority");
+                break;
+
+            case 3:
+                taskWrapper.style.borderLeft = "3px solid red";
+                taskWrapper.classList.add("high-priority");
+                break;
+
+            default:
+                console.log("Error: wrong priority argument");
+                break;
+        }
+
         taskImages.appendChild(taskDelete);
 
         taskWrapper.appendChild(taskCheckbox);
@@ -310,49 +365,25 @@ export const DOMHandler = {
         taskWrapper.appendChild(taskImages);
 
         tasks.appendChild(taskWrapper);
-
-        const taskPriority = task.priority;
-
-        switch (taskPriority) {
-            case 1:
-                taskWrapper.style.borderLeft = "3px solid green";
-                break;
-
-            case 2:
-                taskWrapper.style.borderLeft = "3px solid orange";
-                break;
-
-            case 3:
-                taskWrapper.style.borderLeft = "3px solid red";
-                break;
-
-            default:
-                console.log("Error: wrong priority argument");
-                break;
-        }
     },
 
     createTodoFromModal: function() {
-        const title = document.getElementById("task-name").value !== "" ? document.getElementById("task-name").value : "Default";
+        const title = document.getElementById("task-name").value;
         const description = document.getElementById("task-description").value;
         const dueDate = document.querySelector(".new-date").value !== "" ? document.querySelector(".new-date").value : "Today";
         const priorityInputs = document.querySelectorAll("input[name='priority']");
-        let priority;
+        let priority = 0;
 
         for (let index = 0; index < priorityInputs.length; index++) {
             if (priorityInputs[index].checked) {
                 priority = index + 1;
                 break;
             }
-
-            // be sure that at least one radio button is checked
-            if (index > 2) {
-                priority = 0;
-                break;
-            }
         }
 
-        priority = priority === 0 ? 1 : priority;
+        if (title === "") {
+            return null;
+        }
 
         return Todo(title, description, dueDate, priority);
     },
@@ -386,8 +417,8 @@ export const DOMHandler = {
                             <h2>Add a new task</h2>
                             <span class="close-modal" id="close-modal-task">&times;</span>
                         </div>
-                        <input class="task-name" id="task-name" type="text" placeholder="Title...">
-                        <input class="task-description" id="task-description" type="text" placeholder="Description...">
+                        <input class="task-name" id="task-name" type="text" placeholder="Title*">
+                        <input class="task-description" id="task-description" type="text" placeholder="Description">
                         <div class="due-date">
                             <p>Due Date:</p>
                             <input class="new-date" type="date" name="new-todo" required="">
@@ -413,26 +444,31 @@ export const DOMHandler = {
                 break;
             
             case "details-modal":
+                const taskTitle = "";
+                const projectName = "";
+                const priority = "";
+                const dueDate = "";
+
                 modal.innerHTML = `
                     <div class="details-modal-content">
                         <div class="modal-title">
-                            <h2></h2>
+                            <h2>${taskTitle}</h2>
                             <span class="close-modal" id="close-modal-task">&times;</span>
                         </div>
 
                         <div class="modal-details-project">
-                            <span>Project:</span>
-                            <span></span>
+                            <span>Project: </span>
+                            <span>${projectName}</span>
                         </div>
 
                         <div class="modal-details-priority">
                             <span>Priority:</span>
-                            <span></span>
+                            <span>${priority}</span>
                         </div>
 
                         <div class="modal-details-due-date">
                             <span>Due Date:</span>
-                            <span></span>
+                            <span>${dueDate}</span>
                         </div>
 
                         <div class="modal-details-description">
