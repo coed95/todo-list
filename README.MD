@@ -23,7 +23,5 @@ This Todo List is part of The Odin Project JavaScript Assignment.
 
 Things to do:
 
-- be sure that when Add Task is clicked the modal references properly to its parent, so that the task is added to the correct project
-- format date and put them in the right folders
-- fix the add project button, so that it adds the projects to the nav properly
-- add the option to include a todo through modal
+- make sure that each task is visible only within the correct project
+- make sure that if you click the nav button more than once it doesn't add the task previously added again
