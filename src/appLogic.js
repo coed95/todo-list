@@ -19,14 +19,7 @@ export function Project(name, defaultImage = "../src/img/list.svg") {
         todos: [],
 
         addTodo: function(todo) {
-            const existingTodo = this.todos.findIndex(existing => existing.title === todo.title);
-
-            if (existingTodo !== -1) {
-                console.log("Todo with the same title already exists");
-            }
-            else {
-                this.todos.push(todo);
-            }
+            this.todos.push(todo);
         },
 
         editTodo: function(index, todo) {
@@ -50,16 +43,16 @@ export function Project(name, defaultImage = "../src/img/list.svg") {
 }
 
 export const Projects = {
-    Home: Project("Home", Home),
-    Today: Project("Today", Today),
-    Week: Project("Week", Week),
+    home: Project("home", Home),
+    today: Project("today", Today),
+    week: Project("week", Week),
 
     addProject: function(name) {
         if (this.hasOwnProperty(name)) {
             alert(`Project "${name}" already exists.`);
         }
         else if (name === "") {
-            alert("Project name cannot be empty");
+            alert("Project name cannot be empty or contain weird symbols");
         }
         else {
             this[name] = Project(name);
