@@ -1,3 +1,5 @@
+import { isToday, isThisWeek, parseISO } from 'date-fns';
+
 import Home from "../src/img/home.svg";
 import Today from "../src/img/today.svg";
 import Week from "../src/img/week.svg";
