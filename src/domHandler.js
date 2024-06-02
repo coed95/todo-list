@@ -269,11 +269,19 @@ export const DOMHandler = {
     },
 
     renderProject: function(project) {
+        const buttonAddTask = document.querySelector(".button-add-task");
         const contentTitle = document.querySelector(".content-title");
         contentTitle.textContent = project.name;
 
         const tasksList = document.querySelector(".task-list");
         tasksList.innerHTML = "";
+
+        if (contentTitle.textContent === "today" || contentTitle.textContent === "week") {
+            buttonAddTask.style.visibility = "hidden";
+        }
+        else {
+            buttonAddTask.style.visibility = "visible";
+        }
         
         project.todos.forEach(task => {
             this.renderTask(project, task);
