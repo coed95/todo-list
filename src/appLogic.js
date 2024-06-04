@@ -50,15 +50,7 @@ export const Projects = {
     week: Project("week", Week),
 
     addProject: function(name) {
-        if (this.hasOwnProperty(name)) {
-            alert(`Project "${name}" already exists.`);
-        }
-        else if (name === "") {
-            alert("Project name cannot be empty or contain weird symbols");
-        }
-        else {
-            this[name] = Project(name);
-        }
+        this[name] = Project(name);
     },
 
     deleteProject: function(name) {
