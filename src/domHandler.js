@@ -94,10 +94,7 @@ export const DOMHandler = {
 
                 const newButton = wrapper.querySelector(`#button-${sanitizedProjectModalName.toLowerCase()}`);
                 newButton.addEventListener("click", () => {
-                    const content = document.querySelector(".content");
-                    content.className = "content";
-                    content.classList.add(sanitizedProjectModalName);
-                    this.renderProject(newProject);
+                    this.renderProject(newProject, sanitizedProjectModalName);
                 });
         
                 this.resetModal(projectModal);
@@ -167,6 +164,7 @@ export const DOMHandler = {
 
             if (todo !== null) {
                 Projects[currentProject].addTodo(todo);
+                Projects.filterTask(currentProject, todo);
 
                 this.renderTask(Projects[currentProject], todo);
 
@@ -198,7 +196,7 @@ export const DOMHandler = {
                 const sanitizedProjectName = projectName.trim().toLowerCase().replace(/\s+/g, '-')
 
                 button.addEventListener("click", () => {
-                    this.renderProject(Projects[sanitizedProjectName]);
+                    this.renderProject(Projects[sanitizedProjectName], sanitizedProjectName);
                     content.className = "content";
                     content.classList.add(sanitizedProjectName);
                 });
@@ -262,7 +260,7 @@ export const DOMHandler = {
 
                 content.className = "content";
                 content.classList.add("home");
-                this.renderProject(Projects["home"]);
+                this.renderProject(Projects["home"], "home");
             }
         });
     
@@ -272,8 +270,13 @@ export const DOMHandler = {
         return wrapper;
     },
 
-    renderProject: function(project) {
+    renderProject: function(project, name) {
         const buttonAddTask = document.querySelector(".button-add-task");
+
+        const content = document.querySelector(".content");
+        content.className = "content";
+        content.classList.add(name);
+
         const contentTitle = document.querySelector(".content-title");
         contentTitle.textContent = project.name;
 
