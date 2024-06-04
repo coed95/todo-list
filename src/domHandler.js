@@ -1,7 +1,10 @@
 import Delete from "../src/img/delete.svg";
 
 import { handleButtonClick } from "../src/buttonUtils.js";
-import { Project, Projects, Todo } from "../src/appLogic.js";
+
+import { Project,
+         Projects,
+         Todo } from "../src/appLogic.js";
 
 export const DOMHandler = {
     createHeader: function(name) {
@@ -86,7 +89,7 @@ export const DOMHandler = {
             }
             else {
                 Projects.addProject(sanitizedProjectModalName);
-        
+
                 const newProject = Projects[sanitizedProjectModalName];
                 const wrapper = this.createProjectButton(projectModalName, newProject.image);
 
@@ -165,6 +168,7 @@ export const DOMHandler = {
             if (todo !== null) {
                 Projects[currentProject].addTodo(todo);
                 Projects.filterTask(currentProject, todo);
+                saveProjects(Projects);
 
                 this.renderTask(Projects[currentProject], todo);
 
