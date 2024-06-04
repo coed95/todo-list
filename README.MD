@@ -20,8 +20,3 @@ This Todo List is part of The Odin Project JavaScript Assignment.
 
 4. Run files distribution:  
 `npm run build`
-
-Things to do:
-
-- make sure that each task is visible only within the correct project
-- make sure that if you click the nav button more than once it doesn't add the task previously added again
