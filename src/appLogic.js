@@ -4,12 +4,11 @@ import Home from "../src/img/home.svg";
 import Today from "../src/img/today.svg";
 import Week from "../src/img/week.svg";
 
-export function Todo(title, description, dueDate, priority) {
+export function Todo(title, dueDate, priority) {
     const parsedDate = parse(dueDate, "dd-MM-yyyy", new Date());
 
     return {
         title,
-        description,
         dueDate,
         priority,
         completed: false,
