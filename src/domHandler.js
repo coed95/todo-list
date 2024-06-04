@@ -74,12 +74,17 @@ export const DOMHandler = {
         const buttonCloseModalProject = projectModal.querySelector("#close-modal-project");
 
         buttonAddProjectModal.addEventListener("click", () => {
-            // oh madonna
             // this replaces all spaces with '-', so that the class name is stored properly in the div content
             const projectModalName = projectModal.querySelector("#project-name").value;
             const sanitizedProjectModalName = projectModalName.trim().toLowerCase().replace(/\s+/g, '-');
-        
-            if (!Projects.hasOwnProperty(sanitizedProjectModalName)) {
+
+            if (!/^[a-zA-Z0-9\-_\s]*$/.test(sanitizedProjectModalName)) {
+                alert("Project cannot contain weird symbols.");
+            }
+            else if (Projects.hasOwnProperty(sanitizedProjectModalName)) {
+                alert(`Project "${projectModalName}" already exists.`);
+            }
+            else {
                 Projects.addProject(sanitizedProjectModalName);
         
                 const newProject = Projects[sanitizedProjectModalName];
@@ -97,8 +102,6 @@ export const DOMHandler = {
         
                 this.resetModal(projectModal);
                 this.hideModal(projectModal);
-            } else {
-                alert(`Project "${projectModalName}" already exists.`);
             }
         });
 
@@ -164,6 +167,7 @@ export const DOMHandler = {
 
             if (todo !== null) {
                 Projects[currentProject].addTodo(todo);
+
                 this.renderTask(Projects[currentProject], todo);
 
                 this.resetModal(taskModal);
@@ -391,6 +395,10 @@ export const DOMHandler = {
 
         if (title === "") {
             return null;
+        }
+
+        if (priority === 0) {
+            priority = 1;
         }
 
         return Todo(title, description, dueDate, priority);
