@@ -186,9 +186,6 @@ export const DOMHandler = {
             this.hideModal(taskModal);
         });
 
-        const detailsModal = this.createModal("details-modal");
-        document.body.appendChild(detailsModal);
-
         Object.entries(Projects)
             .filter(([key, value]) => typeof value !== 'function')
             .forEach(([projectName, project]) => {
@@ -297,7 +294,6 @@ export const DOMHandler = {
 
     renderTask: function(project, task) {
         const tasks = document.querySelector(".task-list");
-        const detailsModal = document.querySelector(".details-modal");
 
         const taskWrapper = document.createElement("div");
         taskWrapper.classList.add("task");
@@ -314,14 +310,6 @@ export const DOMHandler = {
         const taskName = document.createElement("p");
         taskName.classList.add("task-title");
         taskName.textContent = task.title;
-
-        const taskDetails = document.createElement("button");
-        taskDetails.classList.add("task-details");
-        taskDetails.textContent = "Details";
-
-        taskDetails.addEventListener("click", () => {
-            this.showModal(detailsModal);
-        });
 
         const taskDate = document.createElement("p");
         taskDate.classList.add("task-date");
@@ -375,16 +363,13 @@ export const DOMHandler = {
 
         taskWrapper.appendChild(taskCheckbox);
         taskWrapper.appendChild(taskName);
-        taskWrapper.appendChild(taskDetails);
         taskWrapper.appendChild(taskDate);
         taskWrapper.appendChild(taskImages);
-
         tasks.appendChild(taskWrapper);
     },
 
     createTodoFromModal: function() {
         const title = document.getElementById("task-name").value;
-        const description = document.getElementById("task-description").value;
         const dueDate = document.querySelector(".new-date").value !== "" ? document.querySelector(".new-date").value : "Today";
         const priorityInputs = document.querySelectorAll("input[name='priority']");
         let priority = 0;
@@ -404,7 +389,7 @@ export const DOMHandler = {
             priority = 1;
         }
 
-        return Todo(title, description, dueDate, priority);
+        return Todo(title, dueDate, priority);
     },
 
     createModal: function(modalName) {
@@ -437,7 +422,6 @@ export const DOMHandler = {
                             <span class="close-modal" id="close-modal-task">&times;</span>
                         </div>
                         <input class="task-name" id="task-name" type="text" placeholder="Title*">
-                        <input class="task-description" id="task-description" type="text" placeholder="Description">
                         <div class="due-date">
                             <p>Due Date:</p>
                             <input class="new-date" type="date" name="new-todo" required="">
@@ -457,42 +441,6 @@ export const DOMHandler = {
                         <div class="modal-buttons">
                             <button class="add-button" id="add-button-task">Add</button>
                             <button class="cancel-button" id="cancel-button-task">Cancel</button>
-                        </div>
-                    </div>
-                `;
-                break;
-            
-            case "details-modal":
-                const taskTitle = "";
-                const projectName = "";
-                const priority = "";
-                const dueDate = "";
-
-                modal.innerHTML = `
-                    <div class="details-modal-content">
-                        <div class="modal-title">
-                            <h2>${taskTitle}</h2>
-                            <span class="close-modal" id="close-modal-task">&times;</span>
-                        </div>
-
-                        <div class="modal-details-project">
-                            <span>Project: </span>
-                            <span>${projectName}</span>
-                        </div>
-
-                        <div class="modal-details-priority">
-                            <span>Priority:</span>
-                            <span>${priority}</span>
-                        </div>
-
-                        <div class="modal-details-due-date">
-                            <span>Due Date:</span>
-                            <span>${dueDate}</span>
-                        </div>
-
-                        <div class="modal-details-description">
-                            <span>Description:</span>
-                            </span></span>
                         </div>
                     </div>
                 `;
