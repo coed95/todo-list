@@ -134,7 +134,7 @@ Starts the app by initializing state, setting up event listeners, and rendering 
 Clone the repository:
 
 ```bash
-git clone git@github.com:your-username/todo-list.git
+git clone git@github.com:coed95/todo-list.git
 ```
 
 Move into the project folder:
@@ -187,7 +187,7 @@ Possible future improvements include:
 - Add filtering by completed and active todos
 - Add sorting by due date or priority
 - Add an "All Todos" view
-- Add an "Today" view
+- Add a "Today" view
 - Add drag-and-drop ordering
 - Improve responsive design for small screens
 - Add custom delete confirmation modals
