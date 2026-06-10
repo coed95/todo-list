@@ -4,8 +4,8 @@
   "description": "A reusable Webpack template for JavaScript projects.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "dev": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack serve --config webpack.config.js",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "watch": "webpack --watch --mode development"
   },
@@ -20,6 +20,9 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.106.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.3"
+    "webpack-dev-server": "^5.2.4"
+  },
+  "dependencies": {
+    "date-fns": "^4.4.0"
   }
 }

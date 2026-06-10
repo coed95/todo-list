@@ -3,3 +3,329 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+#app {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+}
+
+.sidebar {
+    background-color: #faf7f2;
+    border-right: 1px solid #e5e0d8;
+    padding: 24px;
+}
+
+.sidebar h1 {
+    margin: 0 0 32px;
+    font-size: 1.5rem;
+}
+
+.sidebar h2 {
+    margin-top: 32px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+#add-project-btn,
+#add-todo-btn {
+    border: none;
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+#add-project-btn:hover,
+#add-todo-btn:hover {
+    background-color: #d84333;
+}
+
+#project-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+}
+
+#project-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#project-list li span {
+    flex: 1;
+}
+
+#project-list li:hover {
+    background-color: #f0e8df;
+}
+
+#project-list li.active-project {
+    background-color: #ffe5df;
+    color: #c0392b;
+    font-weight: 700;
+}
+
+#project-list li:hover .edit-project-btn,
+#project-list li:hover .delete-project-btn,
+#project-list li.active-project .edit-project-btn,
+#project-list li.active-project .delete-project-btn {
+    opacity: 1;
+}
+
+.main-content {
+    padding: 48px 128px;
+    width: 100%;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.project-header h2 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+#todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.todo-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 16px;
+    align-items: start;
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.todo-item.completed {
+    opacity: 0.6;
+}
+
+.todo-item.completed h3 {
+    text-decoration: line-through;
+}
+
+.todo-info h3 {
+    margin: 0 0 8px;
+}
+
+.todo-info p {
+    margin: 4px 0;
+    color: #666;
+}
+
+.todo-item button {
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.todo-item button:hover {
+    background-color: #f5f5f5;
+}
+
+.delete-project-btn {
+    border: none;
+    background: transparent;
+    color: #777;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.delete-project-btn:hover {
+    background-color: #f3c7c0;
+    color: #c0392b;
+}
+
+.edit-project-btn,
+.delete-project-btn {
+    border: none;
+    background: transparent;
+    color: #777;
+    padding: 2px 6px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.15s ease, background-color 0.15s, color 0.15s ease;
+}
+
+.edit-project-btn:hover,
+.delete-project-btn:hover {
+    background-color: #f3c7c0;
+    color: #c0392b;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.35);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: white;
+    width: min(480px, 100%);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.22);
+    transform: translateY(-12px);
+    transition: transform 0.2s ease;
+}
+
+.modal.open .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h2 {
+    margin: 0 0 18px;
+    font-size: 1.6rem;
+}
+
+#todo-form,
+#project-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#todo-form input,
+#todo-form textarea,
+#todo-form select,
+#project-form input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    font: inherit;
+}
+
+#todo-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#todo-form input:focus,
+#todo-form textarea:focus,
+#todo-form select:focus,
+#project-form input:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgb(231 76 60 / 0.16);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.modal-actions button {
+    border: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.modal-actions button[type="button"] {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+.modal-actions button[type="button"]:hover {
+    background-color: #e5e5e5;
+}
+
+.modal-actions button[type="submit"] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.modal-actions button[type="submit"]:hover {
+    background-color: #d84333;
+}
+
+.empty-message {
+    color: #777;
+    background-color: white;
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.todo-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+    color: #666;
+}
+
+.priority {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+
+.priority-low {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.priority-medium {
+    background-color: #fff3cd;
+    color: #8a6d1d;
+}
+
+.priority-high {
+    background-color: #fdecea;
+    color: #c0392b;
+}

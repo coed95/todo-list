@@ -1,161 +1,198 @@
-# Webpack Template
+# Todo List
 
-A reusable Webpack template for JavaScript projects.
+A Todo List web application built with JavaScript, HTML, CSS, Webpack, and localStorage.
 
-This template includes support for:
+This project was created as part of The Odin Project JavaScript curriculum. The main goal was to practice organizing application logic, separating DOM manipulation from data logic, using modules, and saving user data locally in the browser.
 
-- JavaScript modules
-- CSS imports
-- HTML template generation
-- Image assets
-- Development server
-- Production builds
+## Features
+
+- Create, edit, select, and delete projects
+- Create, edit, complete, and delete todos
+- Store todos inside specific projects
+- Display todo title, description, due date, priority, and completion status
+- Use modal forms for adding and editing projects and todos
+- Prevent duplicate project names
+- Show an empty state when a project has no todos
+- Save all data with localStorage
+- Keep data available after refreshing the page
+- Format due dates with date-fns
+- Use priority labels for low, medium, and high priority todos
+- Responsive-style layout with a sidebar and main content area
+
+## Built With
+
+- JavaScript
+- HTML
+- CSS
+- Webpack
+- date-fns
+- localStorage
 
 ## Project Structure
 
+```text
+src/
+  modules/
+    app.js
+    dom.js
+    project.js
+    storage.js
+    todo.js
+  index.js
+  style.css
+  template.html
 ```
-webpack-template/
-├── dist/
-├── node_modules/
-├── src/
-│   ├── index.js
-│   ├── style.css
-│   └── template.html
-├── .gitignore
-├── package-lock.json
-├── package.json
-└── webpack.config.js
+
+## Main Concepts Practiced
+
+This project focuses on several important JavaScript concepts:
+
+- Factory functions for creating todo and project objects
+- ES modules for separating code into different files
+- Application state management
+- DOM rendering based on data
+- Event listeners for user interaction
+- Form handling with modals
+- localStorage for persistence
+- JSON serialization and parsing
+- Basic validation
+- Webpack bundling
+
+## How It Works
+
+The application stores all projects and todos inside a central state object.
+
+Each project contains:
+
+```js
+{
+  id: "unique-project-id",
+  name: "Project name",
+  todos: []
+}
 ```
 
-## Main Files
+Each todo contains:
 
-### src/index.js
+```js
+{
+  id: "unique-todo-id",
+  title: "Todo title",
+  description: "Todo description",
+  dueDate: "YYYY-MM-DD",
+  priority: "medium",
+  completed: false
+}
+```
 
-This is the JavaScript entry point.
-Webpack starts from this file and follows all imports to build the dependency graph.
+The app state is saved to localStorage whenever the user changes the data. When the page loads, the app checks localStorage first. If saved data exists, it loads that data. If no saved data exists, it creates a default project.
 
-### src/style.css
+## Modules
 
-This file contains the project styles.
-CSS files can be imported directly into JavaScript because this template uses style-loader and css-loader.
+### todo.js
 
-### src/template.html
+Creates todo objects.
 
-This is the HTML template used by HtmlWebpackPlugin.
-Webpack uses this file to generate the final HTML file inside dist/.
+### project.js
 
-### webpack.config.js
+Creates project objects.
 
-This file contains the Webpack configuration.
+### app.js
 
-It defines:
-- the entry point
-- the output folder
-- development settings
-- loaders
-- plugins
+Handles the main application state and data logic, including:
 
-## Webpack Configuration
+- Adding projects
+- Editing projects
+- Deleting projects
+- Selecting projects
+- Adding todos
+- Editing todos
+- Deleting todos
+- Toggling todo completion
+- Saving state after changes
 
-The `webpack.config.js` file defines how Webpack builds and serves the project.
+### storage.js
 
-It starts from the entry point (`./src/index.js`) and builds a dependency graph by following all imports. From there, it bundles everything into a single output file (`main.js`) inside the `dist/` folder. The output directory is automatically cleaned before each build to avoid leftover files.
+Handles saving and loading data from localStorage.
 
-The configuration runs in development mode by default, which prioritizes faster builds and easier debugging. Source maps are enabled to map bundled code back to the original source files, making debugging more manageable.
+### dom.js
 
-A development server is configured to serve the project locally and automatically reload when changes are detected, including updates to the HTML template.
+Handles DOM rendering and user interaction, including:
 
-`HtmlWebpackPlugin` is used to generate the final HTML file based on `src/template.html` and automatically inject the bundled JavaScript, removing the need to manage script tags manually.
+- Rendering projects
+- Rendering todos
+- Opening and closing modals
+- Handling form submissions
+- Updating the UI after state changes
 
-Loaders extend Webpack’s functionality beyond JavaScript. They allow the project to import and process CSS files, HTML files, and image assets directly within JavaScript modules, ensuring all resources are included in the final bundle.
+### index.js
 
-## Scripts
+Starts the app by initializing state, setting up event listeners, and rendering the interface.
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone git@github.com:your-username/todo-list.git
+```
+
+Move into the project folder:
+
+```bash
+cd todo-list
+```
 
 Install dependencies:
 
-`npm install`
-
-Start development server:
-
-`npm run dev`
-
-Build for production:
-
-`npm run build`
-
-Watch files:
-
-`npm run watch`
-
-## How to Use This Template
-
-### 1. Create a new project from the template
-
-```
-git clone <your-repo-url>
-cd webpack-template
-rm -rf .git
-git init
+```bash
+npm install
 ```
 
-### 2. Install dependencies
+Start the development server:
 
-`npm install`
-
-This installs all required packages based on package.json and package-lock.json.
-
-### 3. Start development
-
-`npm run dev`
-
-This starts the Webpack Dev Server and opens the project in your browser.
-
-All changes inside src/ will automatically reload in the browser.
-
-### 4. Work inside the src/ folder
-
-- index.js → main entry point
-- style.css → styles (imported into JS)
-- template.html → base HTML template
-
-Example:
-
-`import "./style.css";`
-
-You should only modify files inside src/. Do not edit dist/ manually.
-
-### 5. Add assets
-
-You can import images directly in JavaScript:
-
-`import image from "./image.png";`
-
-Webpack will process and include them in the final build.
-
-### 6. Build for production
-
-`npm run build`
-
-This generates an optimized version of your project inside the dist/ folder.
-
-### 7. Deploy
-
-Upload the contents of the dist/ folder to your hosting service.
-Do not deploy src/, node_modules/, or configuration files.
-
-### 8. Reuse again
-
-For a new project:
-- copy this template
-- repeat from step 2
-
-## Git Ignore
-
-```
-node_modules/
-dist/
+```bash
+npm run dev
 ```
 
-node_modules/ is ignored because it can be recreated with npm install.
+Build the project:
 
-dist/ is ignored because it is generated by Webpack.
+```bash
+npm run build
+```
+
+## Usage
+
+1. Open the app.
+2. Use "+ Add Project" to create a new project.
+3. Select a project from the sidebar.
+4. Use "+ Add Todo" to create a todo inside the selected project.
+5. Edit todos with the edit button.
+6. Mark todos as completed with the checkbox.
+7. Delete todos or projects when needed.
+8. Refresh the page and the saved data will remain available.
+
+## What I Learned
+
+While building this project, I practiced separating application logic from DOM logic. Instead of directly tying data changes to the interface, I used app-level functions to update state, then re-rendered the UI from that state.
+
+I also learned how localStorage works with JSON. Since localStorage only stores strings, the app needs to convert the state object into a string with `JSON.stringify()` and convert it back with `JSON.parse()` when loading.
+
+Another important part of the project was learning how to use modal forms instead of browser prompts. This made the interface cleaner and gave me more control over form inputs, validation, and styling.
+
+## Future Improvements
+
+Possible future improvements include:
+
+- Add filtering by completed and active todos
+- Add sorting by due date or priority
+- Add an "All Todos" view
+- Add an "Today" view
+- Add drag-and-drop ordering
+- Improve responsive design for small screens
+- Add custom delete confirmation modals
+- Add project icons or colors
+
+## Acknowledgments
+
+This project was built as part of The Odin Project JavaScript curriculum.
