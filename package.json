@@ -1,7 +1,7 @@
 {
-  "name": "webpack-template",
+  "name": "todo list",
   "version": "1.0.0",
-  "description": "A reusable Webpack template for JavaScript projects.",
+  "description": "A Todo List application built with JavaScript, Webpack, and localStorage.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
